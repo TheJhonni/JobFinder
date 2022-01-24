@@ -1,26 +1,11 @@
-import React, { useEffect, useState } from "react";
+import ListJobs from "./ListJobs";
+import React from "react";
 
-function Home({ fetchJobs }) {
-  const [jobs, setJobs] = useState([]);
-
-  useEffect(() => {
-    fetchJobs().then((res) => setJobs(res));
-  });
+function Home() {
   return (
     <div>
       <div>
-        <input type="text" placeholder="Search your job"></input>
-      </div>
-      <div>
-        <ul>
-          <li>cwcqc</li>
-        </ul>
-        <ul>
-          <li>ccwqcwc</li>
-        </ul>
-        <ul>
-          <li>wcqwcwc</li>
-        </ul>
+        <ListJobs />
       </div>
     </div>
   );

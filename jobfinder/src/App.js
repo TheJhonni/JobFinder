@@ -1,25 +1,19 @@
 import Home from "./components/Home";
+import FilteredJobsByCompany from "./components/FilteredJobsByCompany";
 import "./App.css";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
-  const fetchJobs = async () => {
-    try {
-      let resp = await fetch();
-      //"https://strive-jobs-api.herokuapp.com/jobs?search=developer&limit=100"
-      if (resp.ok) {
-        let jobs = await resp.json();
-        return jobs.data;
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   return (
-    <div className="App">
-      <h1>CIAOOO</h1>
-      <Home fetchJobs={fetchJobs} />
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <h1 className="bg-gray-400 py-5 text-white">Job Finder App</h1>
+        <Routes>
+          <Route path="/" element={<Home />}></Route>
+          <Route path="/:company" element={<FilteredJobsByCompany />}></Route>
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
 
