@@ -35,12 +35,15 @@ function ListJobs() {
         <input
           className="rounded-full my-4 p-5"
           type="text"
-          placeholder="Search your job"
+          placeholder="Search your Job Title"
           value={search}
           onChange={handleSearch}
         />
       </div>
-      {jobs && jobs.map((job) => <Jobs key={job._id} job={job} />)}
+      {jobs &&
+        jobs
+          .filter((job) => job.title.toLowerCase().includes(search))
+          .map((job) => <Jobs key={job._id} job={job} />)}
     </div>
   );
 }
