@@ -1,19 +1,32 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 
 function Jobs({ job }) {
-  const [company, setCompany] = useState([]);
   return (
-    <div className="flex flex-col justify-center items-center p-2 my-2 border-2">
-      <div className="flex">
-        <img src={job?.url} alt="" />
+    <div className="rounded overflow-hidden shadow-md hover:shadow-xl  hover:scale-110 transform transition-all ease-out">
+      <img className="w-full" src={job.url} alt="" />
+      <div className="px-6 py-4">
+        <div className="font-bold text-xl mb-2">
+          {job.title}
+          <Link to={"/" + job.company_name}>
+            <span className="inline-block bg-gray-200 rounded-full px-3 ml-2 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 hover:bg-stone-600 hover:text-white">
+              {job.company_name}
+            </span>
+          </Link>
+        </div>
+        <p className="text-gray-700 text-base">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus
+          quia, Nonea! Maiores et perferendis eaque, exercitationem praesentium
+          nihil.
+        </p>
       </div>
-      <div className="flex flex-col justify-start space-x-3">
-        <p className="border-1"> Job Title: {job.title}</p>
-        <Link to={"/company" + job.company_name}>
-          <p className="border-1"> Company: {job.company_name}</p>
-        </Link>
-        <p className="border-1"> Category: {job.category}</p>
+      <div className="px-6 pt-4 pb-2">
+        <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+          {job.category}
+        </span>
+        <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+          #getJobs
+        </span>
       </div>
     </div>
   );

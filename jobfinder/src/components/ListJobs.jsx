@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import Jobs from "./Jobs";
 
 function ListJobs() {
-  const fetchJobs = async () => {
+  const fetchJobs = async (search = "developer") => {
     try {
       let resp = await fetch(
-        "https://strive-jobs-api.herokuapp.com/jobs?search=developer&limit=10"
+        `https://strive-jobs-api.herokuapp.com/jobs?search=${search}&limit=10`
       );
       if (resp.ok) {
         let jobs = await resp.json();
@@ -22,7 +22,8 @@ function ListJobs() {
   const [search, setSearch] = useState("");
 
   const handleSearch = (e) => {
-    setSearch(e.target.value);
+    setSearch(e.target.value); //develop
+    fetchJobs(e.target.value); // develo
   };
 
   useEffect(() => {
@@ -30,21 +31,25 @@ function ListJobs() {
   }, []);
 
   return (
-    <div className="bg-gray-200">
-      <div className="flex justify-center mb-5 bg-gray-300">
-        <input
-          className="rounded-full my-4 p-5"
-          type="text"
-          placeholder="Search your Job Title"
-          value={search}
-          onChange={handleSearch}
-        />
+    <>
+      <div className="bg-gray-200">
+        <div className="flex justify-center mb-5 bg-gray-300">
+          <input
+            className="rounded-full my-4 p-5"
+            type="text"
+            placeholder="Search your Job Title"
+            value={search}
+            onChange={handleSearch}
+          />
+        </div>
       </div>
-      {jobs &&
-        jobs
-          .filter((job) => job.title.toLowerCase().includes(search))
-          .map((job) => <Jobs key={job._id} job={job} />)}
-    </div>
+      <div className="p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
+        {jobs &&
+          jobs
+            .filter((job) => true || job.title.toLowerCase().includes(search))
+            .map((job) => <Jobs key={job._id} job={job} />)}
+      </div>
+    </>
   );
 }
 
