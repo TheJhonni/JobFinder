@@ -9,8 +9,12 @@ function App() {
       <div className="App">
         <h1 className="bg-gray-400 py-5 text-white">Job Finder App</h1>
         <Routes>
-          <Route path="/" element={<Home />}></Route>
-          <Route path="/:company" element={<FilteredJobsByCompany />}></Route>
+          <Route exact path="/" element={<Home />}></Route>
+          <Route
+            exact
+            path="/:company"
+            element={<FilteredJobsByCompany />}
+          ></Route>
         </Routes>
       </div>
     </BrowserRouter>
