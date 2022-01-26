@@ -17,11 +17,7 @@ function SavedJobsPage({ savedJobs, removeFromSaved }) {
   return (
     <>
       <h1 className="text-centern py-5 shadow-xl text-2xl my-4">
-        THE NUMBER OF YOUR SAVED JOBS IS :{" "}
-        {savedJobs.reduce(
-          (acc, currentValue) => acc + parseFloat(currentValue),
-          0
-        )}
+        THE NUMBER OF YOUR SAVED JOBS IS : {savedJobs.length}
       </h1>
       <div className="p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
         {savedJobs &&

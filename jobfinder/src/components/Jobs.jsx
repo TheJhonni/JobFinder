@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { AiOutlineStar } from "react-icons/ai";
+import { AiFillStar } from "react-icons/ai";
 import { connect } from "react-redux";
 import { addToSavedJobsAction } from "./redux/actions";
 
@@ -14,7 +15,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-function Jobs({ job, addToSavedJobs }) {
+function Jobs({ job, addToSavedJobs, jobs }) {
+  const isFavourite = jobs.savedJobs.some((_job) => _job._id === job._id);
+
   return (
     <div className="rounded overflow-hidden shadow-md hover:shadow-xl  hover:scale-105 transform transition-all ease-out">
       <div className="px-6 py-4">
@@ -36,7 +39,11 @@ function Jobs({ job, addToSavedJobs }) {
       </div>
       <div className="flex space-x-3 justify-center align-center px-6 pt-4 pb-3">
         <button onClick={() => addToSavedJobs(job)}>
-          <AiOutlineStar className="cursor-pointer text-yellow-400 hover:scale-150 transition-all delay-50 ease-out hover:text-yellow-700" />
+          {isFavourite ? (
+            <AiFillStar className="cursor-pointer text-yellow-400 hover:scale-150 transition-all delay-50 ease-out hover:text-yellow-700" />
+          ) : (
+            <AiOutlineStar className="cursor-pointer text-yellow-400 hover:scale-150 transition-all delay-50 ease-out hover:text-yellow-700" />
+          )}
         </button>
         <span className="inline-block bg-gray-200 rounded-full px-3 text-sm font-semibold text-gray-700 mr-2 mb-2">
           {job.category}
