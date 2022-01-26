@@ -1,7 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { AiOutlineStar } from "react-icons/ai";
+import { connect } from "react-redux";
+import { addToSavedJobsAction } from "./redux/actions";
 
-function Jobs({ job }) {
+const mapStateToProps = (state) => ({
+  ...state,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  addToSavedJobs: (job) => {
+    dispatch(addToSavedJobsAction(job));
+  },
+});
+
+function Jobs({ job, addToSavedJobs }) {
   return (
     <div className="rounded overflow-hidden shadow-md hover:shadow-xl  hover:scale-105 transform transition-all ease-out">
       <div className="px-6 py-4">
@@ -21,11 +34,14 @@ function Jobs({ job }) {
           praesentium nihil.
         </p>
       </div>
-      <div className="px-6 pt-4 pb-2">
-        <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+      <div className="flex space-x-3 justify-center align-center px-6 pt-4 pb-3">
+        <button onClick={() => addToSavedJobs(job)}>
+          <AiOutlineStar className="cursor-pointer text-yellow-600" />
+        </button>
+        <span className="inline-block bg-gray-200 rounded-full px-3 text-sm font-semibold text-gray-700 mr-2 mb-2">
           {job.category}
         </span>
-        <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+        <span className="inline-block bg-gray-200 rounded-full px-3 text-sm font-semibold text-gray-700 mr-2 mb-2">
           #getJobs
         </span>
       </div>
@@ -33,4 +49,4 @@ function Jobs({ job }) {
   );
 }
 
-export default Jobs;
+export default connect(mapStateToProps, mapDispatchToProps)(Jobs);
