@@ -4,18 +4,23 @@ import { AiOutlineStar } from "react-icons/ai";
 import { AiFillStar } from "react-icons/ai";
 import { connect } from "react-redux";
 import { addToSavedJobsAction } from "./redux/actions";
+import { removeFromSavedJobsAction } from "./redux/actions";
 
 const mapStateToProps = (state) => ({
   ...state,
+  savedJobs: state.jobs.savedJobs,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   addToSavedJobs: (job) => {
     dispatch(addToSavedJobsAction(job));
   },
+  removeFromSaved: (index) => {
+    dispatch(removeFromSavedJobsAction(index));
+  },
 });
 
-function Jobs({ job, addToSavedJobs, jobs }) {
+function Jobs({ i, job, addToSavedJobs, jobs, removeFromSaved }) {
   const isFavourite = jobs.savedJobs.some((_job) => _job._id === job._id);
 
   return (
@@ -42,7 +47,10 @@ function Jobs({ job, addToSavedJobs, jobs }) {
           {isFavourite ? (
             <AiFillStar className="cursor-pointer text-yellow-400 hover:scale-150 transition-all delay-50 ease-out hover:text-yellow-700" />
           ) : (
-            <AiOutlineStar className="cursor-pointer text-yellow-400 hover:scale-150 transition-all delay-50 ease-out hover:text-yellow-700" />
+            <AiOutlineStar
+              className="cursor-pointer text-yellow-400 hover:scale-150 transition-all delay-50 ease-out hover:text-yellow-700"
+              onClick={() => removeFromSaved(i)}
+            />
           )}
         </button>
         <span className="inline-block bg-gray-200 rounded-full px-3 text-sm font-semibold text-gray-700 mr-2 mb-2">

@@ -54,7 +54,7 @@ function ListJobs() {
         {jobs &&
           jobs
             .filter((job) => true || job.title.toLowerCase().includes(search))
-            .map((job) => <Jobs key={job._id} job={job} />)}
+            .map((job, i) => <Jobs i={i} key={job._id} job={job} />)}
       </div>
     </>
   );
