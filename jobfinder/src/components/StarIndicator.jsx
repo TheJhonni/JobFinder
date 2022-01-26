@@ -7,7 +7,7 @@ const mapStateToProps = (state) => ({
   savedJobsLength: state.jobs.savedJobs.length,
 });
 
-function StarIndicator({ savedJobsLength, savedJobs, job }) {
+function StarIndicator({ savedJobsLength }) {
   return (
     <>
       <h4 className="mr-3">SAVED JOBS:</h4>

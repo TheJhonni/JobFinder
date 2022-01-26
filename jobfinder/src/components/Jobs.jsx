@@ -43,20 +43,24 @@ function Jobs({ i, job, addToSavedJobs, jobs, removeFromSaved }) {
         </p>
       </div>
       <div className="flex space-x-3 justify-center align-center px-6 pt-4 pb-3">
-        <button onClick={() => addToSavedJobs(job)}>
+        <button
+          onClick={() => {
+            addToSavedJobs(job);
+            //removeFromSaved(i);
+          }}
+        >
           {isFavourite ? (
             <AiFillStar className="cursor-pointer text-yellow-400 hover:scale-150 transition-all delay-50 ease-out hover:text-yellow-700" />
           ) : (
-            <AiOutlineStar
-              className="cursor-pointer text-yellow-400 hover:scale-150 transition-all delay-50 ease-out hover:text-yellow-700"
-              onClick={() => removeFromSaved(i)}
-            />
+            <button>
+              <AiOutlineStar className="cursor-pointer text-yellow-400 hover:scale-150 transition-all delay-50 ease-out hover:text-yellow-700" />
+            </button>
           )}
         </button>
-        <span className="inline-block bg-gray-200 rounded-full px-3 text-sm font-semibold text-gray-700 mr-2 mb-2">
+        <span className="inline-block bg-gray-200 rounded-full px-3 text-sm font-semibold text-gray-700 mr-2  mb-2">
           {job.category}
         </span>
-        <span className="inline-block bg-gray-200 rounded-full px-3 text-sm font-semibold text-gray-700 mr-2 mb-2">
+        <span className="inline-block bg-gray-200 rounded-full px-3 text-sm font-semibold text-gray-700 mr-2  mb-2">
           #getJobs
         </span>
       </div>
