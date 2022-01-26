@@ -10,13 +10,13 @@ const mapStateToProps = (state) => ({
 function StarIndicator({ savedJobsLength }) {
   return (
     <>
-      <div className="flex items-center space-x-5 justify-center ml-auto">
-        <h4>SAVED JOBS:</h4>
+      <h4 className="mr-3">SAVED JOBS:</h4>
+      <div className="flex items-baseline justify-center ml-auto">
         <Link to={"/favourite"}>
-          <BsFillStarFill className="cursor-pointer text-4xl text-yellow-600 hover:scale-75 transition-all delay-50 ease-out" />
+          <BsFillStarFill className="cursor-pointer text-4xl mr-3 text-yellow-600 hover:scale-75 hover:text-yellow-400 transition-all delay-50 ease-out" />
         </Link>
       </div>
-      <span className="text-black">{savedJobsLength}</span>
+      <span className="text-black">0 + {savedJobsLength}</span>
     </>
   );
 }
