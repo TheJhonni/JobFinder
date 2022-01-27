@@ -1,35 +1,30 @@
 import React, { useEffect, useState } from "react";
+import { connect } from "react-redux";
 import Jobs from "./Jobs";
+import { getJobsActionWithThunk } from "./redux/actions";
 import StarIndicator from "./StarIndicator";
 
-function ListJobs() {
-  const fetchJobs = async (search = "developer") => {
-    try {
-      let resp = await fetch(
-        `https://strive-jobs-api.herokuapp.com/jobs?search=${search}&limit=10`
-      );
-      if (resp.ok) {
-        let jobs = await resp.json();
-        console.log(jobs);
-        setJobs(jobs.data);
-      } else {
-        console.log("error");
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+const mapStateToProps = (state) => ({
+  jobsAvailable: state.fetchJobs.displayedJobs,
+  errorMessage: state.fetchJobs.errorMessage,
+});
 
-  const [jobs, setJobs] = useState([]);
+const mapDispatchToProps = (dispatch) => ({
+  getJobs: () => {
+    dispatch(getJobsActionWithThunk());
+  },
+});
+
+function ListJobs({ jobsAvailable, errorMessage, getJobs }) {
   const [search, setSearch] = useState("");
 
   const handleSearch = (e) => {
     setSearch(e.target.value); //develop
-    fetchJobs(e.target.value); // develo
+    getJobs(e.target.value); // develo
   };
 
   useEffect(() => {
-    fetchJobs();
+    getJobs();
   }, []);
 
   return (
@@ -51,13 +46,20 @@ function ListJobs() {
         </div>
       </div>
       <div className="p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
-        {jobs &&
-          jobs
+        {jobsAvailable &&
+          jobsAvailable
             .filter((job) => true || job.title.toLowerCase().includes(search))
-            .map((job, i) => <Jobs i={i} key={job._id} job={job} />)}
+            .map((job, i) => (
+              <Jobs
+                i={i}
+                errorMessage={errorMessage}
+                key={job._id}
+                jobsAvailable={jobsAvailable}
+              />
+            ))}
       </div>
     </>
   );
 }
 
-export default ListJobs;
+export default connect(mapStateToProps, mapDispatchToProps)(ListJobs);
