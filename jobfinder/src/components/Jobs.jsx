@@ -15,13 +15,14 @@ const mapDispatchToProps = (dispatch) => ({
   addToSavedJobs: (job) => {
     dispatch(addToSavedJobsAction(job));
   },
-  removeFromSaved: (index) => {
-    dispatch(removeFromSavedJobsAction(index));
+  removeFromSaved: (id) => {
+    dispatch(removeFromSavedJobsAction(id));
   },
 });
 
 function Jobs({ i, job, addToSavedJobs, jobs, removeFromSaved }) {
   const isFavourite = jobs.savedJobs.some((_job) => _job._id === job._id);
+  const toggleSaved = isFavourite ? removeFromSaved : addToSavedJobs;
 
   return (
     <div className="rounded overflow-hidden shadow-md hover:shadow-xl  hover:scale-105 transform transition-all ease-out">
@@ -43,20 +44,21 @@ function Jobs({ i, job, addToSavedJobs, jobs, removeFromSaved }) {
         </p>
       </div>
       <div className="flex space-x-3 justify-center align-center px-6 pt-4 pb-3">
-        <button
-          onClick={() => {
-            addToSavedJobs(job);
-            //removeFromSaved(i);
-          }}
-        >
-          {isFavourite ? (
-            <AiFillStar className="cursor-pointer text-yellow-400 hover:scale-150 transition-all delay-50 ease-out hover:text-yellow-700" />
-          ) : (
-            <button>
-              <AiOutlineStar className="cursor-pointer text-yellow-400 hover:scale-150 transition-all delay-50 ease-out hover:text-yellow-700" />
-            </button>
-          )}
-        </button>
+        {isFavourite ? (
+          <AiFillStar
+            className="cursor-pointer text-yellow-400 hover:scale-150 transition-all delay-50 ease-out hover:text-yellow-700"
+            onClick={() => {
+              toggleSaved(job._id);
+            }}
+          />
+        ) : (
+          <AiOutlineStar
+            className="cursor-pointer text-yellow-400 hover:scale-150 transition-all delay-50 ease-out hover:text-yellow-700"
+            onClick={() => {
+              toggleSaved(job);
+            }}
+          />
+        )}
         <span className="inline-block bg-gray-200 rounded-full px-3 text-sm font-semibold text-gray-700 mr-2  mb-2">
           {job.category}
         </span>

@@ -8,8 +8,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  removeFromSaved: (index) => {
-    dispatch(removeFromSavedJobsAction(index));
+  removeFromSaved: (id) => {
+    dispatch(removeFromSavedJobsAction(id));
   },
 });
 
@@ -42,7 +42,7 @@ function SavedJobsPage({ savedJobs, removeFromSaved }) {
                 </p>
               </div>
               <div className="flex space-x-3 justify-center align-center px-6 pt-4 pb-3">
-                <button onClick={() => removeFromSaved(i)}>
+                <button onClick={() => removeFromSaved(savedJob._id)}>
                   <FaTrash className="cursor-pointer text-red-700" />
                 </button>
                 <span className="inline-block bg-gray-200 rounded-full px-3 text-sm font-semibold text-gray-700 mr-2 mb-2">

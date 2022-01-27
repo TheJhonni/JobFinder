@@ -6,7 +6,7 @@ export const addToSavedJobsAction = (job) => ({
   payload: job,
 });
 
-export const removeFromSavedJobsAction = (index) => ({
+export const removeFromSavedJobsAction = (id) => ({
   type: REMOVE_FROM_SAVEDJOBS,
-  payload: index,
+  payload: id,
 });

@@ -10,7 +10,7 @@ export const initialState = {
 let configureStore = createStore(
   mainReducer,
   initialState,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUZ_DEVTOOLS_EXTENSION
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
 export default configureStore;
