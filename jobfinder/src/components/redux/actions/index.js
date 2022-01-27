@@ -17,7 +17,7 @@ export const removeFromSavedJobsAction = (id) => ({
 export const addToSavedJobsActionWithThunk = (job) => {
   return async (dispatch, getState) => {
     console.log("Here's my State", getState());
-    if (getState().job.savedJobs.length < 10) {
+    if (getState().jobs.savedJobs) {
       setTimeout(() => {
         dispatch({
           type: ADD_TO_SAVEDJOBS,
@@ -32,7 +32,7 @@ export const addToSavedJobsActionWithThunk = (job) => {
   };
 };
 
-export const getJobsActionWithThunk = (search = "developer") => {
+export const getJobsActionWithThunk = (search) => {
   return async (dispatch) => {
     try {
       let resp = await fetch(

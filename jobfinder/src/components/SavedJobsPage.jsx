@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { FaTrash } from "react-icons/fa";
 import { removeFromSavedJobsAction } from "./redux/actions";
+import { Link } from "react-router-dom";
 
 const mapStateToProps = (state) => ({
   savedJobs: state.jobs.savedJobs,
@@ -28,12 +29,14 @@ function SavedJobsPage({ savedJobs, removeFromSaved }) {
             >
               <div className="px-6 py-4">
                 <div className="font-bold text-xl mb-2">
-                  {savedJob.title}
                   <a href={savedJob.url} target="_blank">
+                    {savedJob.title}
+                  </a>
+                  <Link to={"/" + savedJob.company_name}>
                     <span className="inline-block bg-gray-200 rounded-full px-3 ml-2 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 hover:bg-stone-600 hover:text-white">
                       {savedJob.company_name}
                     </span>
-                  </a>
+                  </Link>
                 </div>
                 <p className="text-gray-700 text-base">
                   Lorem ipsum dolor sit amet, consectetur adipisicing elit.

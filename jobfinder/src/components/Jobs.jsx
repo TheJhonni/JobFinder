@@ -5,6 +5,7 @@ import { AiFillStar } from "react-icons/ai";
 import { connect } from "react-redux";
 import { addToSavedJobsActionWithThunk } from "./redux/actions";
 import { removeFromSavedJobsAction } from "./redux/actions";
+import Alert from "./Alert";
 
 const mapStateToProps = (state) => ({
   savedJobs: state.jobs.savedJobs,
@@ -12,8 +13,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  addToSavedJobs: (job) => {
-    dispatch(addToSavedJobsActionWithThunk(job));
+  addToSavedJobs: (jobsAvailable) => {
+    dispatch(addToSavedJobsActionWithThunk(jobsAvailable));
   },
   removeFromSaved: (id) => {
     dispatch(removeFromSavedJobsAction(id));
@@ -21,18 +22,21 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 function Jobs({
-  job,
   addToSavedJobs,
   removeFromSaved,
   savedJobs,
   jobsAvailable,
   errorMessage,
 }) {
-  const isFavourite = savedJobs.some((_job) => _job._id === job._id);
+  const isFavourite = savedJobs.some((_job) => _job._id === jobsAvailable._id);
   const toggleSaved = isFavourite ? removeFromSaved : addToSavedJobs;
 
   return (
-    <div className="rounded overflow-hidden shadow-md hover:shadow-xl  hover:scale-105 transform transition-all ease-out">
+    <div
+      div
+      className="rounded overflow-hidden shadow-md hover:shadow-xl  hover:scale-105 transform transition-all ease-out"
+    >
+      {errorMessage && <Alert />}
       <div className="px-6 py-4">
         <div className="font-bold text-xl mb-2">
           <a href={jobsAvailable.url} target="_blank">

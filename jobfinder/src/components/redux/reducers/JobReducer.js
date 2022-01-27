@@ -23,7 +23,7 @@ const JobReducer = (state = initialState.jobs, action) => {
       return {
         ...state,
         savedJobs: state.savedJobs.filter((job) => job._id !== action.payload),
-        savedJobsError: false,
+        errorMessage: false,
       };
 
     default:

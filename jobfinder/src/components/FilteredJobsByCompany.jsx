@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const fetchCompany = async (companyName) => {
   try {
@@ -31,14 +31,16 @@ function FilteredJobsByCompany() {
       {companyJobs.data &&
         companyJobs?.data.map((job) => (
           <div className="rounded overflow-hidden shadow-sm hover:shadow-xl  hover:border-stone-600 cursor-pointer">
-            <img className="w-full" src={job.url} alt="" />
             <div className="px-6 py-4">
               <div className="font-bold text-xl mb-2">
-                {job.title}
-
-                <span className="inline-block bg-gray-200 rounded-full px-3 ml-2 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-                  {job.company_name}
-                </span>
+                <a href={job.url} target="_blank">
+                  {job.title}
+                </a>
+                <Link to={"/" + job.company_name}>
+                  <span className="inline-block bg-gray-200 rounded-full px-3 ml-2 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 hover:bg-stone-600 hover:text-white">
+                    {job.company_name}
+                  </span>
+                </Link>
               </div>
               <p className="text-gray-700 text-base">
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit.
