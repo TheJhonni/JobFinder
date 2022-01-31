@@ -1,5 +1,5 @@
 import React from "react";
-import { connect } from "react-redux";
+//import { connect } from "react-redux";
 import { FaTrash } from "react-icons/fa";
 import { removeFromSavedJobsAction } from "./redux/actions";
 import { Link } from "react-router-dom";
@@ -16,7 +16,7 @@ import { useDispatch } from "react-redux";
   },
 }); */
 
-function SavedJobsPage({ removeFromSaved }) {
+function SavedJobsPage() {
   const savedJobs = useSelector((state) => state.jobs.savedJobs);
 
   const dispatch = useDispatch();

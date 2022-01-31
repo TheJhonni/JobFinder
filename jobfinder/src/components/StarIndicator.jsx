@@ -1,13 +1,15 @@
 import React from "react";
-import { connect } from "react-redux";
+//import { connect } from "react-redux";
 import { BsFillStarFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-const mapStateToProps = (state) => ({
+/* const mapStateToProps = (state) => ({
   savedJobsLength: state.jobs.savedJobs.length,
-});
+}); */
 
-function StarIndicator({ savedJobsLength }) {
+function StarIndicator() {
+  const savedJobsLength = useSelector((state) => state.jobs.savedJobs.length);
   return (
     <>
       <h4 className="mr-3">SAVED JOBS:</h4>
@@ -21,4 +23,4 @@ function StarIndicator({ savedJobsLength }) {
   );
 }
 
-export default connect(mapStateToProps)(StarIndicator);
+export default StarIndicator;
