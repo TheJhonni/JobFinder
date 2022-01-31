@@ -4,6 +4,7 @@ import JobReducer from "../reducers/JobReducer";
 import thunk from "redux-thunk";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import { encryptTransform } from "redux-persist-transform-encrypt";
 
 const composeThatAlwaysWorks =
   window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -27,15 +28,23 @@ const bigReducers = combineReducers({
 const persistConfig = {
   key: "root",
   storage,
+  transforms: [
+    encryptTransform({
+      secretKey: process.env.REACT_APP_SECRET_KEY,
+      onError: (error) => {
+        console.log(error);
+      },
+    }),
+  ],
 };
 
 const persistedReducer = persistReducer(persistConfig, bigReducers);
 
-let configureStore = createStore(
+export let configureStore = createStore(
   persistedReducer,
   initialState,
   composeThatAlwaysWorks(applyMiddleware(thunk))
 );
 
-export default configureStore;
+//export default configureStore;
 export const persistor = persistStore(configureStore);
