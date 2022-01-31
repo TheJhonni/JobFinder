@@ -3,18 +3,23 @@ import { connect } from "react-redux";
 import { FaTrash } from "react-icons/fa";
 import { removeFromSavedJobsAction } from "./redux/actions";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
-const mapStateToProps = (state) => ({
+/* const mapStateToProps = (state) => ({
   savedJobs: state.jobs.savedJobs,
-});
+}); */
 
-const mapDispatchToProps = (dispatch) => ({
+/* const mapDispatchToProps = (dispatch) => ({
   removeFromSaved: (id) => {
     dispatch(removeFromSavedJobsAction(id));
   },
-});
+}); */
 
-function SavedJobsPage({ savedJobs, removeFromSaved }) {
+function SavedJobsPage({ removeFromSaved }) {
+  const savedJobs = useSelector((state) => state.jobs.savedJobs);
+
+  const dispatch = useDispatch();
   return (
     <>
       <h1 className="text-centern py-5 shadow-xl text-2xl my-4">
@@ -45,7 +50,11 @@ function SavedJobsPage({ savedJobs, removeFromSaved }) {
                 </p>
               </div>
               <div className="flex space-x-3 justify-center align-center px-6 pt-4 pb-3">
-                <button onClick={() => removeFromSaved(savedJob._id)}>
+                <button
+                  onClick={() =>
+                    dispatch(removeFromSavedJobsAction(savedJob._id))
+                  }
+                >
                   <FaTrash className="cursor-pointer text-red-700" />
                 </button>
                 <span className="inline-block bg-gray-200 rounded-full px-3 text-sm font-semibold text-gray-700 mr-2 mb-2">
@@ -62,4 +71,4 @@ function SavedJobsPage({ savedJobs, removeFromSaved }) {
   );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SavedJobsPage);
+export default SavedJobsPage;

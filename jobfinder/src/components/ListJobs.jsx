@@ -1,32 +1,38 @@
 import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
+//import { connect } from "react-redux";
 import Jobs from "./Jobs";
 import { getJobsActionWithThunk } from "./redux/actions";
 import StarIndicator from "./StarIndicator";
 import Spinner from "./Spinner";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
-const mapStateToProps = (state) => ({
+/* const mapStateToProps = (state) => ({
   jobsAvailable: state.fetchJobs.displayedJobs,
   errorMessage: state.fetchJobs.errorMessage,
-});
+}); */
 
-const mapDispatchToProps = (dispatch) => ({
+/* const mapDispatchToProps = (dispatch) => ({
   getJobs: (search = "developer") => {
     dispatch(getJobsActionWithThunk(search));
   },
-});
+}); */
 
-function ListJobs({ jobsAvailable, errorMessage, getJobs }) {
+function ListJobs() {
+  const jobsAvailable = useSelector((state) => state.fetchJobs.displayedJobs);
+  const errorMessage = useSelector((state) => state.fetchJobs.errorMessage);
+
+  const dispatch = useDispatch();
   const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    dispatch(getJobsActionWithThunk(search));
+  }, []);
 
   const handleSearch = (e) => {
     setSearch(e.target.value); //develop
-    getJobs(e.target.value); // develo
+    //getJobs(e.target.value); // develo
   };
-
-  useEffect(() => {
-    getJobs();
-  }, []);
 
   return (
     <>
@@ -65,4 +71,5 @@ function ListJobs({ jobsAvailable, errorMessage, getJobs }) {
   );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ListJobs);
+//export default connect(mapStateToProps, mapDispatchToProps)(ListJobs);
+export default ListJobs;
