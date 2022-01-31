@@ -61,14 +61,14 @@ function Jobs({ jobsAvailable }) {
       <div className="flex space-x-3 justify-center align-center px-6 pt-4 pb-3">
         {isFavourite ? (
           <AiFillStar
-            className="cursor-pointer text-yellow-400 hover:scale-150 transition-all delay-50 ease-out hover:text-yellow-700"
+            className="cursor-pointer text-2xl text-yellow-400 hover:scale-150 transition-all delay-50 ease-out hover:text-yellow-700"
             onClick={() => {
               dispatch(toggleSaved(jobsAvailable._id));
             }}
           />
         ) : (
           <AiOutlineStar
-            className="cursor-pointer text-yellow-400 hover:scale-150 transition-all delay-50 ease-out hover:text-yellow-700"
+            className="cursor-pointer text-xl text-yellow-400 hover:scale-150 transition-all delay-50 ease-out hover:text-yellow-700"
             onClick={() => {
               dispatch(toggleSaved(jobsAvailable));
             }}

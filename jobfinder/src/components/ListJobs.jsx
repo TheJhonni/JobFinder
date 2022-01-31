@@ -30,8 +30,8 @@ function ListJobs() {
   }, []);
 
   const handleSearch = (e) => {
-    setSearch(e.target.value); //develop
-    //getJobs(e.target.value); // develo
+    setSearch(e.target.value);
+    dispatch(getJobsActionWithThunk(e.target.value));
   };
 
   return (
