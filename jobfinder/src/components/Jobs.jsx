@@ -2,41 +2,45 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { AiOutlineStar } from "react-icons/ai";
 import { AiFillStar } from "react-icons/ai";
-import { connect } from "react-redux";
 import { addToSavedJobsActionWithThunk } from "./redux/actions";
 import { removeFromSavedJobsAction } from "./redux/actions";
 import Alert from "./Alert";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
-const mapStateToProps = (state) => ({
+/* const mapStateToProps = (state) => ({
   savedJobs: state.jobs.savedJobs,
   isSavedFull: state.jobs.savedJobsError,
-});
+}); */
 
-const mapDispatchToProps = (dispatch) => ({
+/* const mapDispatchToProps = (dispatch) => ({
   addToSavedJobs: (jobsAvailable) => {
     dispatch(addToSavedJobsActionWithThunk(jobsAvailable));
   },
   removeFromSaved: (id) => {
     dispatch(removeFromSavedJobsAction(id));
   },
-});
+}); */
 
-function Jobs({
-  addToSavedJobs,
-  removeFromSaved,
-  savedJobs,
-  jobsAvailable,
-  errorMessage,
-}) {
+function Jobs({ jobsAvailable }) {
+  //CHANGING mapStateToProps INTO useSelector
+  const savedJobs = useSelector((state) => state.jobs.savedJobs);
+  //const isSavedFull = useSelector((state) => state.jobs.savedJobsError);
+
+  //CHANGING mapDispatchToProps INTO useDispatch
+  const dispatch = useDispatch();
+
   const isFavourite = savedJobs.some((_job) => _job._id === jobsAvailable._id);
-  const toggleSaved = isFavourite ? removeFromSaved : addToSavedJobs;
+  const toggleSaved = isFavourite
+    ? removeFromSavedJobsAction
+    : addToSavedJobsActionWithThunk;
 
   return (
     <div
       div
       className="rounded overflow-hidden shadow-md hover:shadow-xl  hover:scale-105 transform transition-all ease-out"
     >
-      {errorMessage && <Alert />}
+      {/* {errorMessage && <Alert />} */}
       <div className="px-6 py-4">
         <div className="font-bold text-xl mb-2">
           <a href={jobsAvailable.url} target="_blank">
@@ -59,14 +63,14 @@ function Jobs({
           <AiFillStar
             className="cursor-pointer text-yellow-400 hover:scale-150 transition-all delay-50 ease-out hover:text-yellow-700"
             onClick={() => {
-              toggleSaved(jobsAvailable._id);
+              dispatch(toggleSaved(jobsAvailable._id));
             }}
           />
         ) : (
           <AiOutlineStar
             className="cursor-pointer text-yellow-400 hover:scale-150 transition-all delay-50 ease-out hover:text-yellow-700"
             onClick={() => {
-              toggleSaved(jobsAvailable);
+              dispatch(toggleSaved(jobsAvailable));
             }}
           />
         )}
@@ -81,4 +85,5 @@ function Jobs({
   );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Jobs);
+//export default connect(mapStateToProps, mapDispatchToProps)(Jobs);
+export default Jobs;
